@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react';
-import { useHistory } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NewContact = () => {
   const [contact, setContact] = useState({
@@ -12,6 +12,7 @@ const NewContact = () => {
   });
 
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -35,11 +36,12 @@ const NewContact = () => {
       if (response.ok) {
         setMessage('Contact created successfully!');
         setContact({
-          Name: '',
+          name: '',
           email: '',
           phone: '',
           address: ''
         });
+        navigate('/');  // Redirigir a la página de inicio después de crear el contacto
       } else {
         setMessage('Failed to create contact. Please try again.');
       }
@@ -55,13 +57,13 @@ const NewContact = () => {
       {message && <div className="alert alert-info text-center">{message}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="fullName" className="form-label">Full Name</label>
+          <label htmlFor="name" className="form-label">Full Name</label>
           <input
             type="text"
             className="form-control"
-            id="fullName"
+            id="name"
             placeholder="Full Name"
-            value={contact.fullName}
+            value={contact.name}
             onChange={handleChange}
             required
           />
