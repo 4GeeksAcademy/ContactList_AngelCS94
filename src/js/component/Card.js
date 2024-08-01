@@ -8,14 +8,14 @@ const Card = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="container mt-4">
+		<div className="container mt-4 shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 			<h1>Contact List</h1>
 			<div className="list-group">
 				{store.contacts && store.contacts.length > 0 ? (
 					store.contacts.map(contact => (
 						<div key={contact.id} className="list-group-item list-group-item-action d-flex align-items-center">
 							<img
-								src="https://via.placeholder.com/80"
+								src="https://cdn.domestika.org/c_fill,dpr_auto,f_auto,pg_1,t_base_params/v1644585304/job-covers/000/092/081/92081-original.png?1644585304"
 								alt={contact.name}
 								className="rounded-circle mr-3"
 								style={{ width: '80px', height: '80px' }}

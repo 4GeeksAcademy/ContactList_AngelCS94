@@ -35,7 +35,7 @@ const EditContact = () => {
 
 	return (
 		<div className="container">
-			<h1>Edit Contact</h1>
+			<h1 className="text-center">Edit Contact</h1>
 			<form onSubmit={handleSubmit}>
 				<div className="form-group">
 					<label>Name</label>
@@ -53,7 +53,7 @@ const EditContact = () => {
 					<label>Address</label>
 					<input type="text" className="form-control" name="address" value={contact.address} onChange={handleChange} required />
 				</div>
-				<button type="submit" className="btn btn-primary">Save</button>
+				<button type="submit" className="btn btn-success mt-2">Save</button>
 			</form>
 		</div>
 	);
