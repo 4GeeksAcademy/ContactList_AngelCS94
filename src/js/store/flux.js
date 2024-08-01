@@ -21,11 +21,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then((data)=>{setStore({contacts: data.contacts})})
 				.catch((err)=>{err})
 			},
-			deleteContacts: () => {
-				//Aqui vamos a meter el fetch para eliminar contactos
+			deleteContact: (id) => {
+				fetch(`https://playground.4geeks.com/contact/agendas/AngelCS94/contacts/${id}`, {
+					method: "DELETE"
+				})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+					const store = getStore();
+					const updatedContacts = store.contacts.filter(contact => contact.id !== id);
+					setStore({ contacts: updatedContacts });
+				})
+				.catch((err) => console.error(err));
 			},
-			changeContacts: () => {
-				//aqui va la API que modifica la informacion con el metodo 'PUT'
+			editContact: (id, updatedContact) => {
+				fetch(`https://playground.4geeks.com/contact/agendas/AngelCS94/contacts/${id}`, {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(updatedContact)
+				})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`HTTP error! status: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then((data) => {
+					const store = getStore();
+					const updatedContacts = store.contacts.map(contact => 
+						contact.id === parseInt(id) ? data : contact
+					);
+					setStore({ contacts: updatedContacts });
+				})
+				.catch((err) => console.error(err));
 			}
 		}
 	};
