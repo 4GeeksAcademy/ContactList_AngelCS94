@@ -5,16 +5,21 @@ import { Context } from "../store/appContext";
 
 
 export const Home = () => {
-    const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context);
 
-    useEffect(() => {
-        // Llama a getContacts cuando el componente se monta
-        actions.getContacts();
-    }, []); // El segundo argumento [] asegura que esto solo se ejecute una vez
+	useEffect(() => {
+		// Inicializar usuario y obtener contactos
+		const initialize = async () => {
+			await actions.initializeUser();
+			actions.getContacts();
+		};
 
-    return (
-        <div className="text-center">
-            <Card />
-        </div>
-    );
+		initialize();
+	}, []); 
+
+	return (
+		<div className="text-center">
+			<Card />
+		</div>
+	);
 };
